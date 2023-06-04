@@ -1,25 +1,25 @@
 {
-  "name": "shell",
+  "name": "feed",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "quotes-mfe",
-  "sourceRoot": "apps/shell/src",
+  "sourceRoot": "apps/feed/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/shell",
-        "index": "apps/shell/src/index.html",
-        "main": "apps/shell/src/main.ts",
+        "outputPath": "dist/apps/feed",
+        "index": "apps/feed/src/index.html",
+        "main": "apps/feed/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/shell/tsconfig.app.json",
-        "assets": ["apps/shell/src/favicon.ico", "apps/shell/src/assets"],
-        "styles": ["apps/shell/src/styles.scss"],
+        "tsConfig": "apps/feed/tsconfig.app.json",
+        "assets": ["apps/feed/src/favicon.ico", "apps/feed/src/assets"],
+        "styles": ["apps/feed/src/styles.scss"],
         "scripts": [],
         "customWebpackConfig": {
-          "path": "apps/shell/webpack.config.js"
+          "path": "apps/feed/webpack.config.js"
         }
       },
       "configurations": {
@@ -38,7 +38,7 @@
           ],
           "outputHashing": "all",
           "customWebpackConfig": {
-            "path": "apps/shell/webpack.prod.config.js"
+            "path": "apps/feed/webpack.prod.config.js"
           }
         },
         "development": {
@@ -53,38 +53,39 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@nx/angular:module-federation-dev-server",
+      "executor": "@nx/angular:webpack-dev-server",
+      "options": {
+        "port": 4202,
+        "publicHost": "http://localhost:4202"
+      },
       "configurations": {
         "production": {
-          "browserTarget": "shell:build:production"
+          "browserTarget": "feed:build:production"
         },
         "development": {
-          "browserTarget": "shell:build:development"
+          "browserTarget": "feed:build:development"
         }
       },
-      "defaultConfiguration": "development",
-      "options": {
-        "publicHost": "http://localhost:4200"
-      }
+      "defaultConfiguration": "development"
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "shell:build"
+        "browserTarget": "feed:build"
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/shell/**/*.ts", "apps/shell/**/*.html"]
+        "lintFilePatterns": ["apps/feed/**/*.ts", "apps/feed/**/*.html"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/shell/jest.config.ts",
+        "jestConfig": "apps/feed/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -96,8 +97,19 @@
     },
     "serve-static": {
       "executor": "@nx/web:file-server",
+      "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "shell:build"
+        "buildTarget": "feed:build",
+        "port": 4202,
+        "watch": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "feed:build:development"
+        },
+        "production": {
+          "buildTarget": "feed:build:production"
+        }
       }
     }
   }

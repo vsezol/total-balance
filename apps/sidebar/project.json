@@ -1,25 +1,25 @@
 {
-  "name": "shell",
+  "name": "sidebar",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "quotes-mfe",
-  "sourceRoot": "apps/shell/src",
+  "sourceRoot": "apps/sidebar/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/shell",
-        "index": "apps/shell/src/index.html",
-        "main": "apps/shell/src/main.ts",
+        "outputPath": "dist/apps/sidebar",
+        "index": "apps/sidebar/src/index.html",
+        "main": "apps/sidebar/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/shell/tsconfig.app.json",
-        "assets": ["apps/shell/src/favicon.ico", "apps/shell/src/assets"],
-        "styles": ["apps/shell/src/styles.scss"],
+        "tsConfig": "apps/sidebar/tsconfig.app.json",
+        "assets": ["apps/sidebar/src/favicon.ico", "apps/sidebar/src/assets"],
+        "styles": ["apps/sidebar/src/styles.scss"],
         "scripts": [],
         "customWebpackConfig": {
-          "path": "apps/shell/webpack.config.js"
+          "path": "apps/sidebar/webpack.config.js"
         }
       },
       "configurations": {
@@ -38,7 +38,7 @@
           ],
           "outputHashing": "all",
           "customWebpackConfig": {
-            "path": "apps/shell/webpack.prod.config.js"
+            "path": "apps/sidebar/webpack.prod.config.js"
           }
         },
         "development": {
@@ -53,38 +53,39 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@nx/angular:module-federation-dev-server",
+      "executor": "@nx/angular:webpack-dev-server",
+      "options": {
+        "port": 4201,
+        "publicHost": "http://localhost:4201"
+      },
       "configurations": {
         "production": {
-          "browserTarget": "shell:build:production"
+          "browserTarget": "sidebar:build:production"
         },
         "development": {
-          "browserTarget": "shell:build:development"
+          "browserTarget": "sidebar:build:development"
         }
       },
-      "defaultConfiguration": "development",
-      "options": {
-        "publicHost": "http://localhost:4200"
-      }
+      "defaultConfiguration": "development"
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "shell:build"
+        "browserTarget": "sidebar:build"
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/shell/**/*.ts", "apps/shell/**/*.html"]
+        "lintFilePatterns": ["apps/sidebar/**/*.ts", "apps/sidebar/**/*.html"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/shell/jest.config.ts",
+        "jestConfig": "apps/sidebar/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -96,8 +97,19 @@
     },
     "serve-static": {
       "executor": "@nx/web:file-server",
+      "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "shell:build"
+        "buildTarget": "sidebar:build",
+        "port": 4201,
+        "watch": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "sidebar:build:development"
+        },
+        "production": {
+          "buildTarget": "sidebar:build:production"
+        }
       }
     }
   }
