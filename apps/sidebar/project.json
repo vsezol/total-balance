@@ -2,7 +2,7 @@
   "name": "sidebar",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "quotes-mfe",
+  "prefix": "app",
   "sourceRoot": "apps/sidebar/src",
   "tags": [],
   "targets": {
