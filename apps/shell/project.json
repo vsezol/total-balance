@@ -53,6 +53,22 @@
       "defaultConfiguration": "production"
     },
     "serve": {
+      "executor": "@nx/angular:webpack-dev-server",
+      "options": {
+        "port": 4200,
+        "publicHost": "http://localhost:4200"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "shell:build:production"
+        },
+        "development": {
+          "browserTarget": "shell:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "serve-all": {
       "executor": "@nx/angular:module-federation-dev-server",
       "configurations": {
         "production": {

@@ -1,6 +1,6 @@
 module.exports = {
   name: 'sidebar',
   exposes: {
-    './Module': 'apps/sidebar/src/app/remote-entry/entry.module.ts',
+    './SidebarComponent': 'apps/sidebar/src/app/sidebar.component.ts',
   },
 };

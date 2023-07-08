@@ -3,7 +3,9 @@ import { Route } from '@angular/router';
 export const appRoutes: Route[] = [
   {
     path: '',
-    loadChildren: () =>
-      import('./remote-entry/entry.module').then((m) => m.RemoteEntryModule),
+    loadComponent: () =>
+      import('./feed-page/feed-page.component').then(
+        (m) => m.FeedPageComponent
+      ),
   },
 ];

@@ -1,18 +1,19 @@
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { Route } from '@angular/router';
+import { loadUnwrappedRemoteModule } from './functions/load-unwrapped-remote-module';
 
 export const appRoutes: Route[] = [
   {
+    path: 'register',
+    loadComponent: () =>
+      loadUnwrappedRemoteModule('register', 'RegisterPageComponent'),
+  },
+  {
+    path: 'profile',
+    loadComponent: () =>
+      loadUnwrappedRemoteModule('profile', 'ProfilePageComponent'),
+  },
+  {
     path: 'feed',
-    loadChildren: () => import('feed/Module').then((m) => m.RemoteEntryModule),
-  },
-  {
-    path: 'sidebar',
-    loadChildren: () =>
-      import('sidebar/Module').then((m) => m.RemoteEntryModule),
-  },
-  {
-    path: '',
-    component: NxWelcomeComponent,
+    loadComponent: () => loadUnwrappedRemoteModule('feed', 'FeedPageComponent'),
   },
 ];

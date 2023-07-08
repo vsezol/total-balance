@@ -1,0 +1,6 @@
+{
+  "sidebar": "http://localhost:4201",
+  "feed": "http://localhost:4202",
+  "profile": "http://localhost:4203",
+  "register": "http://localhost:4204"
+}

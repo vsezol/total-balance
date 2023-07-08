@@ -1,6 +1,7 @@
-<ul class="remote-menu">
-  <li><a routerLink="/">Home</a></li>
-  <li><a routerLink="sidebar">Sidebar</a></li>
-  <li><a routerLink="feed">Feed</a></li>
-</ul>
-<router-outlet></router-outlet>
+<app-suspense>
+  <ng-container *ngComponentOutlet="sidebarComponent | withSuspense | async" />
+  <ng-template #error let-error>error: {{ error }}</ng-template>
+  <span loading>loading...</span>
+</app-suspense>
+
+<router-outlet />
