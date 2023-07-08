@@ -1,5 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
 
+/** @internal */
 @Injectable()
 export class SuspenseService {
   readonly #isLoading = signal(false);
@@ -10,7 +11,7 @@ export class SuspenseService {
 
   readonly isReady = computed(() => !this.isLoading() && !this.error());
 
-  setIsLoading(value: boolean): void {
+  setLoading(value: boolean): void {
     this.#isLoading.set(value);
   }
 

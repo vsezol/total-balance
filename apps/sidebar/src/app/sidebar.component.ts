@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -12,5 +12,6 @@ import { RouterLink } from '@angular/router';
     </ul>
   `,
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent {}

@@ -1,19 +1,35 @@
 import { Route } from '@angular/router';
-import { loadUnwrappedRemoteModule } from './functions/load-unwrapped-remote-module';
+import {
+  RemoteComponentLoaderComponent,
+  RemoteRouteData,
+} from '@quotes-mfe/remote-loader';
 
 export const appRoutes: Route[] = [
   {
     path: 'register',
-    loadComponent: () =>
-      loadUnwrappedRemoteModule('register', 'RegisterPageComponent'),
+    component: RemoteComponentLoaderComponent,
+    data: {
+      remote: 'register',
+      exposed: 'RegisterPageComponent',
+    } satisfies RemoteRouteData,
+  },
+  {
+    path: 'feed',
+    component: RemoteComponentLoaderComponent,
+    data: {
+      remote: 'feed',
+      exposed: 'FeedPageComponent',
+    } satisfies RemoteRouteData,
   },
   {
     path: 'profile',
     loadComponent: () =>
-      loadUnwrappedRemoteModule('profile', 'ProfilePageComponent'),
-  },
-  {
-    path: 'feed',
-    loadComponent: () => loadUnwrappedRemoteModule('feed', 'FeedPageComponent'),
+      import('./profile-page-loader.component').then(
+        (c) => c.ProfilePageLoaderComponent
+      ),
+    data: {
+      remote: 'profile',
+      exposed: 'ProfilePageComponent',
+    } satisfies RemoteRouteData,
   },
 ];

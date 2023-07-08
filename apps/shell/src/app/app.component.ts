@@ -1,9 +1,13 @@
 import { AsyncPipe, NgComponentOutlet } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { loadUnwrappedRemoteModule } from './functions/load-unwrapped-remote-module';
-import { WithSuspensePipe } from './pipes/with-suspense.pipe';
-import { SuspenseComponent } from './suspense.component';
+import { loadUnwrappedRemoteModule } from '@quotes-mfe/remote-loader';
+import {
+  SuspenseComponent,
+  SuspenseErrorDirective,
+  SuspenseLoadingDirective,
+  WithSuspensePipe,
+} from '@quotes-mfe/suspense';
 
 @Component({
   standalone: true,
@@ -13,9 +17,12 @@ import { SuspenseComponent } from './suspense.component';
     AsyncPipe,
     SuspenseComponent,
     WithSuspensePipe,
+    SuspenseLoadingDirective,
+    SuspenseErrorDirective,
   ],
   selector: 'app-root',
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   sidebarComponent = loadUnwrappedRemoteModule('sidebar', 'SidebarComponent');

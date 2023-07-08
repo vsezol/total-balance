@@ -10,11 +10,14 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": ["ESNext", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@quotes-mfe/remote-loader": ["libs/remote-loader/src/index.ts"],
+      "@quotes-mfe/suspense": ["libs/suspense/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SidebarComponent } from './sidebar.component';
 
 @Component({
@@ -6,5 +6,6 @@ import { SidebarComponent } from './sidebar.component';
   standalone: true,
   imports: [SidebarComponent],
   template: '<app-sidebar></app-sidebar>',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {}

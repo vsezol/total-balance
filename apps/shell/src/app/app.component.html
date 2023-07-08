@@ -1,7 +1,7 @@
-<app-suspense>
+<lib-suspense>
+  <span *libSuspenseLoading>Loading Sidebar</span>
+  <span *libSuspenseError>Sidebar is not available :(</span>
   <ng-container *ngComponentOutlet="sidebarComponent | withSuspense | async" />
-  <ng-template #error let-error>error: {{ error }}</ng-template>
-  <span loading>loading...</span>
-</app-suspense>
+</lib-suspense>
 
 <router-outlet />
