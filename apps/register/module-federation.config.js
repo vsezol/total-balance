@@ -1,7 +1,7 @@
 module.exports = {
   name: 'register',
   exposes: {
-    './RegisterPageComponent':
+    RegisterPageComponent:
       'apps/register/src/app/register-page/register-page.component.ts',
   },
 };

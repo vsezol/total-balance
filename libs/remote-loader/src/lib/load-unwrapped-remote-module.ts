@@ -5,4 +5,4 @@ export const loadUnwrappedRemoteModule = (
   remote: string,
   exposed: string
 ): Promise<Type<unknown>> =>
-  loadRemoteModule(remote, `./${exposed}`).then((m) => m[exposed]);
+  loadRemoteModule(remote, exposed).then((m) => m[exposed]);

@@ -1,21 +1,16 @@
 import { Signal, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Data } from '@angular/router';
 import { RemoteRouteData } from './remote-route-data.interface';
 
 export function getRemoteRouteData(): Signal<RemoteRouteData> {
-  const routeData = toSignal(
-    inject(ActivatedRoute).data as Observable<RemoteRouteData>
-  );
+  const routeData = toSignal(inject(ActivatedRoute).data);
 
   return computed(() => {
-    const data: RemoteRouteData | undefined = routeData();
+    const data: Data | undefined = routeData();
 
     if (!isRemoteRouteData(data)) {
-      throw new Error(
-        '[getRemoteComponentLoader] remote route data is not provided'
-      );
+      throw new Error('[getRemoteRouteData] remote route data is not provided');
     }
 
     return data;

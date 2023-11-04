@@ -34,7 +34,7 @@ import {
     </lib-suspense>
   `,
 })
-export class ProfilePageLoaderComponent {
+export default class ProfilePageLoaderComponent {
   readonly #remoteRouteData = getRemoteRouteData();
 
   readonly loadRemoteComponent = computed(() => {

@@ -36,7 +36,7 @@ import { loadUnwrappedRemoteModule } from './load-unwrapped-remote-module';
     </lib-suspense>
   `,
 })
-export class RemoteComponentLoaderComponent {
+export default class RemoteComponentLoaderComponent {
   readonly #remoteRouteData = getRemoteRouteData();
 
   readonly remoteComponentPath = computed(() => {
