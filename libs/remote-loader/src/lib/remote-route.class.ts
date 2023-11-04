@@ -38,6 +38,10 @@ export class RemoteRoute {
 
     this.#route.data = { ...(this.#route.data ?? {}), ...data };
 
+    if (!this.#route.path) {
+      this.#route.path = remote;
+    }
+
     return this.#route;
   }
 
