@@ -4,18 +4,8 @@ import { RemoteRouteData } from './remote-route-data.interface';
 export class RemoteRoute {
   #route: Route;
 
-  get #hasChild(): boolean {
-    return [
-      this.#route.component,
-      this.#route.loadComponent,
-      this.#route.loadChildren,
-    ].some(Boolean);
-  }
-
   constructor(options: Route = {}) {
     this.#route = options;
-
-    this.#registerChild();
   }
 
   for(path: string): RemoteRoute {
@@ -43,14 +33,5 @@ export class RemoteRoute {
     }
 
     return this.#route;
-  }
-
-  #registerChild(): void {
-    if (this.#hasChild) {
-      return;
-    }
-
-    this.#route.loadComponent = () =>
-      import('./remote-component-loader.component');
   }
 }
