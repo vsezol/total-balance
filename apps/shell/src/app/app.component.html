@@ -1,7 +1,10 @@
-<lib-suspense>
-  <span *libSuspenseLoading>Loading Sidebar</span>
-  <span *libSuspenseError>Sidebar is not available :(</span>
-  <ng-container *ngComponentOutlet="sidebarComponent | withSuspense | async" />
-</lib-suspense>
+<button
+  class="menu"
+  cdkOverlayOrigin
+  (click)="openSidebar()"
+  #trigger="cdkOverlayOrigin"
+>
+  ...
+</button>
 
 <router-outlet />

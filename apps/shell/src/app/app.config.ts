@@ -1,4 +1,5 @@
 import { ApplicationConfig } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   provideRouter,
   withComponentInputBinding,
@@ -13,5 +14,6 @@ export const appConfig: ApplicationConfig = {
       withEnabledBlockingInitialNavigation(),
       withComponentInputBinding()
     ),
+    provideAnimations(),
   ],
 };

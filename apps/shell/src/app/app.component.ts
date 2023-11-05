@@ -1,13 +1,25 @@
+import { Overlay, OverlayModule } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { AsyncPipe, NgComponentOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  InjectionToken,
+  Injector,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { loadUnwrappedRemoteModule } from '@quotes-mfe/remote-loader';
 import {
   SuspenseComponent,
   SuspenseErrorDirective,
   SuspenseLoadingDirective,
   WithSuspensePipe,
 } from '@quotes-mfe/suspense';
+import { Subject, delay, tap } from 'rxjs';
+import { SidebarComponent } from './sidebar.component';
+
+export const CLOSE_REQUESTED = new InjectionToken<Subject<void>>(
+  'CLOSE_REQUESTED'
+);
 
 @Component({
   standalone: true,
@@ -19,11 +31,49 @@ import {
     WithSuspensePipe,
     SuspenseLoadingDirective,
     SuspenseErrorDirective,
+    OverlayModule,
+    SidebarComponent,
   ],
   selector: 'app-root',
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  sidebarComponent = loadUnwrappedRemoteModule('sidebar', 'SidebarComponent');
+  constructor(private readonly overlay: Overlay) {}
+
+  openSidebar(): void {
+    const overlayRef = this.overlay.create({
+      positionStrategy: this.overlay.position().global(),
+      hasBackdrop: true,
+      backdropClass: 'transparent-backdrop',
+    });
+
+    const closeRequested$ = new Subject<void>();
+
+    const injector = Injector.create({
+      providers: [
+        {
+          provide: CLOSE_REQUESTED,
+          useValue: closeRequested$,
+        },
+      ],
+    });
+    const userProfilePortal = new ComponentPortal(
+      SidebarComponent,
+      null,
+      injector
+    );
+    overlayRef.attach(userProfilePortal);
+
+    overlayRef
+      .backdropClick()
+      .pipe(
+        tap(() => closeRequested$.next()),
+        delay(1000)
+      )
+      .subscribe(() => {
+        overlayRef.detach();
+        overlayRef.dispose();
+      });
+  }
 }
