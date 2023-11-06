@@ -16,6 +16,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
+import { DrawerStateService } from '@quotes-mfe/drawer';
 import { loadUnwrappedRemoteModule } from '@quotes-mfe/remote-loader';
 import {
   SuspenseComponent,
@@ -24,7 +25,6 @@ import {
   WithSuspensePipe,
 } from '@quotes-mfe/suspense';
 import { Subject, filter, switchMap, tap } from 'rxjs';
-import { DrawerStateService } from './drawer-state.service';
 
 type AnimationState = 'void' | 'enter' | 'leave';
 
@@ -117,7 +117,6 @@ export class SidebarComponent {
         takeUntilDestroyed()
       )
       .subscribe(() => {
-        console.log('close');
         this.#drawerStateService.close();
       });
   }

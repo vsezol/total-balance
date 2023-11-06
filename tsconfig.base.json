@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@quotes-mfe/drawer": ["libs/drawer/src/index.ts"],
       "@quotes-mfe/remote-loader": ["libs/remote-loader/src/index.ts"],
       "@quotes-mfe/suspense": ["libs/suspense/src/index.ts"]
     }

@@ -2,13 +2,13 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { AsyncPipe, NgComponentOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { DrawersService } from '@quotes-mfe/drawer';
 import {
   SuspenseComponent,
   SuspenseErrorDirective,
   SuspenseLoadingDirective,
   WithSuspensePipe,
 } from '@quotes-mfe/suspense';
-import { DrawersService } from './drawers.service';
 import { SidebarComponent } from './sidebar.component';
 
 @Component({
