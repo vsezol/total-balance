@@ -1,4 +1,5 @@
 import {
+  AnimationEvent,
   animate,
   state,
   style,
@@ -13,6 +14,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { loadUnwrappedRemoteModule } from '@quotes-mfe/remote-loader';
 import {
@@ -21,8 +23,10 @@ import {
   SuspenseLoadingDirective,
   WithSuspensePipe,
 } from '@quotes-mfe/suspense';
-import { take } from 'rxjs';
-import { CLOSE_REQUESTED } from './app.component';
+import { Subject, filter, switchMap, tap } from 'rxjs';
+import { DrawerStateService } from './drawer-state.service';
+
+type AnimationState = 'void' | 'enter' | 'leave';
 
 const ANIMATION_TIMINGS = '1s cubic-bezier(0.25, 0.8, 0.25, 1)';
 
@@ -41,7 +45,11 @@ const ANIMATION_TIMINGS = '1s cubic-bezier(0.25, 0.8, 0.25, 1)';
   selector: 'app-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="container" [@slideContent]="animationState()">
+    <div
+      class="container"
+      [@slide]="animationState()"
+      (@slide.done)="handleAnimationDone($event)"
+    >
       <lib-suspense>
         <span *libSuspenseLoading>Loading Sidebar</span>
         <span *libSuspenseError>Sidebar is not available :(</span>
@@ -67,9 +75,9 @@ const ANIMATION_TIMINGS = '1s cubic-bezier(0.25, 0.8, 0.25, 1)';
     `,
   ],
   animations: [
-    trigger('slideContent', [
+    trigger('slide', [
       state('void', style({ transform: 'translateX(-300px)' })),
-      state('enter', style({ transform: 'translateX(0)', opacity: 1 })),
+      state('enter', style({ transform: 'translateX(0)' })),
       state('leave', style({ transform: 'translateX(-300px)' })),
       transition('* => *', animate(ANIMATION_TIMINGS)),
     ]),
@@ -81,15 +89,36 @@ export class SidebarComponent {
     'SidebarComponent'
   );
 
-  readonly animationState = signal<'void' | 'enter' | 'leave'>('void');
+  readonly animationState = signal<AnimationState>('void');
+
+  readonly #drawerStateService = inject(DrawerStateService);
+
+  readonly #animationDoneEvent = new Subject<AnimationEvent>();
 
   constructor() {
-    inject(CLOSE_REQUESTED)
-      .pipe(take(1))
-      .subscribe(() => {
-        this.animationState.set('leave');
-      });
-
     this.animationState.set('enter');
+
+    this.registerCloseHandler();
+  }
+
+  handleAnimationDone(event: AnimationEvent): void {
+    this.#animationDoneEvent.next(event);
+  }
+
+  private registerCloseHandler(): void {
+    const animationLeaveDone = this.#animationDoneEvent.pipe(
+      filter((event) => event.toState === 'leave')
+    );
+
+    this.#drawerStateService.closeRequested$
+      .pipe(
+        tap(() => this.animationState.set('leave')),
+        switchMap(() => animationLeaveDone),
+        takeUntilDestroyed()
+      )
+      .subscribe(() => {
+        console.log('close');
+        this.#drawerStateService.close();
+      });
   }
 }

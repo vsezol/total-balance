@@ -12,6 +12,6 @@ export const appRoutes: Route[] = [
     .by(() => import('./remote-loader.component'))
     .use('register', 'RegisterPageComponent'),
   new RemoteRoute()
-    .by(() => import('./profile-page-loader.component'))
+    .by(() => import('./remote-loader.component'))
     .use('profile', 'ProfilePageComponent'),
 ];

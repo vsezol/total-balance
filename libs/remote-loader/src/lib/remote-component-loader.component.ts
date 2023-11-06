@@ -41,7 +41,7 @@ export default class RemoteComponentLoaderComponent {
 
   readonly remoteComponentPath = computed(() => {
     const { remote, exposed } = this.#remoteRouteData();
-    return `${remote}/${exposed}`;
+    return `${exposed} from ${remote}`;
   });
 
   readonly loadRemoteComponent = computed(() => {
