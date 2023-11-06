@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RemoteComponentLoaderComponent } from '@quotes-mfe/remote-loader';
+import { RemoteComponentLoaderComponent } from '@total-balance/remote-loader';
 
 @Component({
   selector: 'app-remote-loader',

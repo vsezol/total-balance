@@ -15,9 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@quotes-mfe/drawer": ["libs/drawer/src/index.ts"],
-      "@quotes-mfe/remote-loader": ["libs/remote-loader/src/index.ts"],
-      "@quotes-mfe/suspense": ["libs/suspense/src/index.ts"]
+      "@total-balance/drawer": ["libs/drawer/src/index.ts"],
+      "@total-balance/remote-loader": ["libs/remote-loader/src/index.ts"],
+      "@total-balance/suspense": ["libs/suspense/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -16,14 +16,14 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
-import { DrawerStateService } from '@quotes-mfe/drawer';
-import { loadUnwrappedRemoteModule } from '@quotes-mfe/remote-loader';
+import { DrawerStateService } from '@total-balance/drawer';
+import { loadUnwrappedRemoteModule } from '@total-balance/remote-loader';
 import {
   SuspenseComponent,
   SuspenseErrorDirective,
   SuspenseLoadingDirective,
   WithSuspensePipe,
-} from '@quotes-mfe/suspense';
+} from '@total-balance/suspense';
 import { Subject, filter, switchMap, tap } from 'rxjs';
 
 type AnimationState = 'void' | 'enter' | 'leave';

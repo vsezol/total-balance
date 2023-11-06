@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { RemoteRoute } from '@quotes-mfe/remote-loader';
+import { RemoteRoute } from '@total-balance/remote-loader';
 
 export const appRoutes: Route[] = [
   new RemoteRoute()

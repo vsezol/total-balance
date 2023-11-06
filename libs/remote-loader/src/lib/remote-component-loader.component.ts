@@ -5,7 +5,7 @@ import {
   SuspenseErrorDirective,
   SuspenseLoadingDirective,
   WithSuspensePipe,
-} from '@quotes-mfe/suspense';
+} from '@total-balance/suspense';
 import { getRemoteRouteData } from './get-remote-route-data.function';
 import { loadUnwrappedRemoteModule } from './load-unwrapped-remote-module';
 

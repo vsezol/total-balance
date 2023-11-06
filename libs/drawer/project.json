@@ -2,7 +2,7 @@
   "name": "drawer",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/drawer/src",
-  "prefix": "quotes-mfe",
+  "prefix": "total-balance",
   "tags": [],
   "projectType": "library",
   "targets": {
